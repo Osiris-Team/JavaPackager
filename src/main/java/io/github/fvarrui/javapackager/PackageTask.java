@@ -427,6 +427,9 @@ public class PackageTask {
         // which breaks the logic below, thus I moved it here.
         TaskJavaUpdater taskJavaUpdater = new TaskJavaUpdater(platform);
         taskJavaUpdater.execute(jdkVersion, jdkVendor);
+        if(platform == Platform.mac){ // mac is our special kid as always
+            taskJavaUpdater.jdkPath = new File(taskJavaUpdater.jdkPath + "/Contents/Home");
+        }
         if (!taskJavaUpdater.jdkPath.exists() || taskJavaUpdater.jdkPath.listFiles() == null || taskJavaUpdater.jdkPath.listFiles().length == 0) {
             throw new Exception("JDK path doesn't exist or is empty: " + taskJavaUpdater.jdkPath);
         }
