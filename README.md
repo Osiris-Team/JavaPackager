@@ -14,6 +14,7 @@ The readme below shows examples for this.
 
 ### Developers
 - Unified the settings classes of gradle and maven into one class (PackageTask.class).
+- Included sample/test gradle/maven projects to directly test the plugin changes via JUnit.
 
 # JavaPackager
 
