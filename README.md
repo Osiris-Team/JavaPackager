@@ -1,12 +1,12 @@
 ## Changes in this fork
 ### Users
-- `jdkPath` must not be specified anymore. If not set the latest JDK
-  (for the target system) will get automatically downloaded and used.
+- `jdkPath` must not be specified anymore. The latest JDK
+  (for the target system) gets downloaded and used.
 - You can specify a `jdkVendor` (adoptium/graalvm) and
 a `jdkVersion` if needed.
 - Since the default JDK is now graalvm you can benefit from it
 by setting `nativeImage` and `sharedLibrary` to true, to generate
-binaries/libraries specific to your current platform.
+binaries/libraries specific to your current platform (note that you must install its dependencies manually/yourself for now).
 - Gradle users must change their existing build.gradle file a bit,
 by putting your settings inside `javapackager{ bundleJre = true ... }`. 
 The readme below shows examples for this.
