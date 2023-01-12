@@ -34,7 +34,8 @@ public class GraalVM {
     public File getNativeImageExe(){
         File nativeImage = null;
         for (File file : dirBin.listFiles()) {
-            if(file.getName().contains("native-image")){
+            if(file.getName().equals("native-image.cmd") || file.getName().equals("native-image.sh")
+                    || file.getName().equals("native-image")){
                 nativeImage = file;
                 break;
             }
@@ -56,9 +57,10 @@ public class GraalVM {
         if(jarFile==null || !jarFile.exists())
             throw new FileNotFoundException("File ending with \"shaded.jar\" or \"all.jar\" or \"dependencies.jar\"" +
                     " not found inside: "+outputDirectory);
+        String outputExeName = jarFile.getName().replace(".jar", "") + (platform == Platform.windows ? ".exe" : "");
         CommandUtils.executeWithResult(outputDirectory, // working dir = output dir
-                getNativeImageExe().toString(),  "-jar", jarFile, jarFile.getName());
-        return new File(outputDirectory+"/"+jarFile.getName() + (platform == Platform.windows ? ".exe" : ""));
+                getNativeImageExe().toString(),  "-jar", jarFile, outputExeName);
+        return new File(outputDirectory+"/"+outputExeName);
     }
 
     public File generateSharedLibrary(Platform platform, File outputDirectory) throws IOException, CommandLineException {

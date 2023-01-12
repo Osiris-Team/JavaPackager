@@ -68,6 +68,7 @@
 							<customizedJre>true</customizedJre>
 							<copyDependencies>true</copyDependencies>
 							<generateInstaller>true</generateInstaller>
+							<nativeImage>true</nativeImage>
 							<additionalResources>
 								<additionalResource>src/main/resources/info.txt</additionalResource>
 							</additionalResources>
