@@ -126,22 +126,6 @@ public abstract class Packager {
 			task.platform(Platform.getCurrentPlatform());
 		}
 
-		// sets jdkPath by default if not specified
-		if (task.getJdkPath() == null) {
-			TaskJavaUpdater taskJavaUpdater = new TaskJavaUpdater(task.getPlatform());
-			taskJavaUpdater.execute(task.getJdkVersion(), task.getJdkVendor());
-			task.jdkPath(taskJavaUpdater.jdkPath);
-			if(task.getPackagingJdk() == null) task.packagingJdk(taskJavaUpdater.jdkPath);
-		} else{
-			// Custom JDK path doesn't support native image
-			// since there is currently no check to see if the JDK is GraalVM
-			if(task.isNativeImage())
-				throw new Exception("Custom JDK does not support native-image! Set jdkPath to null instead of \""+task.getJdkPath()+"\" to fix this.");
-		}
-		if (!task.getJdkPath().exists()) {
-			throw new Exception("JDK path doesn't exist: " + task.getJdkPath());
-		}
-
 		// check if name is valid as filename
 		try {
 			Paths.get(task.getAppName());

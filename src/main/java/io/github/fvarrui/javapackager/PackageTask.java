@@ -4,6 +4,7 @@ import io.github.fvarrui.javapackager.model.*;
 import io.github.fvarrui.javapackager.packagers.PackagerFactory;
 import io.github.fvarrui.javapackager.utils.Const;
 import io.github.fvarrui.javapackager.utils.updater.AdoptV3API;
+import io.github.fvarrui.javapackager.utils.updater.TaskJavaUpdater;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.gradle.api.tasks.*;
@@ -417,11 +418,29 @@ public class PackageTask {
     }
 
     /**
+     * Gets called in {@link #getPackagingJdk()} and {@link #getJdkPath()}
+     * if null.
+     */
+    public void setDefaultPackagingJdk() throws Exception {
+        // Code below was inside the Packager class before,
+        // but it turns out that on gradle that class gets initialised multiple times
+        // which breaks the logic below, thus I moved it here.
+        TaskJavaUpdater taskJavaUpdater = new TaskJavaUpdater(platform);
+        taskJavaUpdater.execute(jdkVersion, jdkVendor);
+        if (!taskJavaUpdater.jdkPath.exists() || taskJavaUpdater.jdkPath.listFiles() == null || taskJavaUpdater.jdkPath.listFiles().length == 0) {
+            throw new Exception("JDK path doesn't exist or is empty: " + taskJavaUpdater.jdkPath);
+        }
+        jdkPath(taskJavaUpdater.jdkPath);
+        packagingJdk(taskJavaUpdater.jdkPath);
+    }
+
+    /**
      * Get packaging JDK
      *
      * @return Packaging JDK
      */
-    public File getPackagingJdk() {
+    public File getPackagingJdk() throws Exception {
+        if(packagingJdk == null) setDefaultPackagingJdk();
         return packagingJdk;
     }
 
@@ -600,7 +619,8 @@ public class PackageTask {
      *
      * @return JDK path
      */
-    public File getJdkPath() {
+    public File getJdkPath() throws Exception {
+        if(jdkPath == null) setDefaultPackagingJdk();
         return jdkPath;
     }
 
