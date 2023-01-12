@@ -1,3 +1,19 @@
+## Changes in this fork
+### Users
+- `jdkPath` must not be specified anymore. If not set the latest JDK
+  (for the target system) will get automatically downloaded and used.
+- You can specify a `jdkVendor` (adoptium/graalvm) and
+a `jdkVersion` if needed.
+- Since the default JDK is now graalvm you can benefit from it
+by setting `nativeImage` and `sharedLibrary` to true, to generate
+binaries/libraries specific to your current platform.
+- Gradle users must change their existing build.gradle file a bit,
+by putting your settings inside `javapackager{ bundleJre = true ... }`. 
+The readme below shows examples for this.
+
+### Developers
+- Unified the settings classes of gradle and maven into one class (PackageTask.class).
+
 # JavaPackager
 
 [![Maven Central](http://img.shields.io/maven-central/v/io.github.fvarrui/javapackager)](https://search.maven.org/artifact/io.github.fvarrui/javapackager)
