@@ -11,6 +11,15 @@ binaries/libraries specific to your current platform (note that you must install
 by putting your settings inside `javapackager{ bundleJre = true ... }`. 
 The readme below shows examples for this.
 - Add this plugin/fork to your project via [JitPack with Maven/Gradle/Sbt/Leinigen](https://jitpack.io/#Osiris-Team/JavaPackager/LATEST).
+Note that you must add this plugin repository:
+```xml
+    <pluginRepositories>
+        <pluginRepository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </pluginRepository>
+    </pluginRepositories>
+```
 
 ### Developers
 - Unified the settings classes of gradle and maven into one class (PackageTask.class).
