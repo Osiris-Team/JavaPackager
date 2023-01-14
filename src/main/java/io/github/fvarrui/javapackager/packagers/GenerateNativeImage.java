@@ -1,5 +1,6 @@
 package io.github.fvarrui.javapackager.packagers;
 
+import io.github.fvarrui.javapackager.model.Platform;
 import io.github.fvarrui.javapackager.utils.*;
 
 import java.io.File;
@@ -20,6 +21,11 @@ public class GenerateNativeImage extends ArtifactGenerator<Packager> {
 		
 		if (!Objects.equals(packager.task.getJdkVendor(), Const.graalvm)) {
 			Logger.warn(getArtifactName() + " cannot be generated because '"+Const.graalvm +"' was expected as jdkVendor, but provided '"+packager.task.getJdkVendor()+"'!");
+			return true;
+		}
+
+		if (!packager.task.getPlatform().isCurrentPlatform()) {
+			Logger.warn(getArtifactName() + " cannot be generated due to the target platform (" + packager.task.getPlatform() + ") is different from the execution platform (" + Platform.getCurrentPlatform() + ")!");
 			return true;
 		}
 		
