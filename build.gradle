@@ -79,7 +79,7 @@ test {
 
 group = 'com.github.Osiris-Team'
 // name = 'JavaPackager' // Gets set in settings.gradle
-version = '2.0.2'
+version = '2.0.2' // Before releasing update on GitHub make sure this is named the same as the release
 description = 'Hybrid Maven/Gradle plugin to package Java applications as native Windows, Mac OS X or GNU/Linux executables and create installers for them'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
