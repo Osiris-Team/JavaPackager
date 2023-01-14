@@ -22,6 +22,11 @@ public class GenerateDeb extends ArtifactGenerator<LinuxPackager> {
 	@Override
 	public boolean skip(LinuxPackager packager) {
 		// TODO find cause why jitpack publishes the jdeb library as artifact
+		// this results in multiple artifacts published in subdirectories:
+		// /jdeb/version/...
+		// /javapackager/version/...
+		// which causes jitpack to generate an empty JavaPackager jar at /
+		// which is the default downloaded jar and thus
 		Logger.warn("Currently not supported.");
 		return true;
 	}

@@ -77,8 +77,9 @@ test {
 	useJUnitPlatform()
 }
 
-group = 'io.github.fvarrui'
-version = '1.7.0'
+group = 'com.github.Osiris-Team'
+// name = 'JavaPackager' // Gets set in settings.gradle
+version = '2.0.2'
 description = 'Hybrid Maven/Gradle plugin to package Java applications as native Windows, Mac OS X or GNU/Linux executables and create installers for them'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
