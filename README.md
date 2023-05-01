@@ -1,5 +1,6 @@
 ## Changes in this fork
 ### Users
+- IMPORTANT for Gradle users: Settings are buggy, still looking for a solution.
 - `jdkPath` must not be specified anymore. The latest JDK
   (for the target system) gets downloaded and used.
 - You can specify a `jdkVendor` (adoptium/graalvm) and
